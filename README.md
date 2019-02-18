@@ -3,3 +3,4 @@ Application qui donne la solution aux taquin en utilisant la librairy numpy pour
 
 bla bla bla
 bli bli bli
+blu blu blu
