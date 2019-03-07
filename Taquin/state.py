@@ -6,20 +6,21 @@ class State:
         self.puzzle = np.arange(1 , ((size*size)+1)).reshape(size,size)
         self.puzzle[size-1][size-1] = 0
         self.position = np.argwhere(self.puzzle == 0)
+
     def possible (self, move): #tests if the movment is possible
         y = self.position[0][0]
         x = self.position[0][1]
         if(move == "U" or move=="u"):
-            if y > 0 and y < len(self.puzzle[y])-1: 
+            if y != 0 and y < len(self.puzzle[0]) and y > 0: 
                 return True
         elif(move == "D" or move == "d"):
-            if y >= 0 and y < (len(self.puzzle[y])-1): 
+            if y >= 0 and y != (len(self.puzzle[0])-1) and y < len(self.puzzle[0]): 
                 return True
         elif move =="R" or move == "r" :
-            if x>=0 and x<len(self.puzzle[1]) and x != len(self.puzzle[x])-1: 
+            if x>=0 and x < (len(self.puzzle[0])-1): 
                 return True
         elif move == "L" or move == "l":
-             if x > 0 and x < len(self.puzzle[x])-1:
+             if x !=0 and x > 0 and x < len(self.puzzle[0]):
                  return True
         else:
             return False
@@ -91,29 +92,24 @@ class State:
         if number == 0: 
             return self
         else:
-            temp = State(len(self.puzzle[0]))
-            temp.puzzle = self.puzzle.copy()
             for ct in  range(number) :
                 mvm = rnd.choice("UDRL")
-                if self.possible(mvm)!=True:
+                if self.possible(mvm)!=True or self.possible(mvm)==False:
                     while self.possible(mvm)!=True :
-                        print ("\t",mvm)
                         mvm = rnd.choice("UDRL")
-                print (mvm, self.possible(mvm))
                 if mvm == "U":
-                    temp.mU()
+                    self.mU()
                 if mvm =="D":
-                    temp.mD()
+                    self.mD()
                 if mvm == "R":
-                    temp.mR()
+                    self.mR()
                 if mvm == "L":
-                    temp.mL()
-                print (temp.puzzle)
-            return temp
+                    self.mL()
                     
 
 
 temp = State(size)
-temp.shuffle(5)
+temp.shuffle(200)
+print (temp.puzzle)
 
 
