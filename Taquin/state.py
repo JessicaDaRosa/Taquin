@@ -1,5 +1,4 @@
 import numpy as np
-size = 5
 class State:
     def __init__(self, size):
         self.puzzle = np.arange(1 , ((size*size)+1)).reshape(size,size)
@@ -72,14 +71,4 @@ class State:
 
 
 temp = State(size)
-print(len(temp.puzzle[1])-1)
-t = temp.nMU()
-print (temp.puzzle,"\n")
-print (t.puzzle, t.position, "\n")
-t.mL()
-t.mL()
-t.mU()
-t.mR()
-t.mU()
-print(t.puzzle, t.position, "\n")
 
