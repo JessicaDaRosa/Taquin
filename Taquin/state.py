@@ -194,11 +194,15 @@ class State:
         if self.possible("L"):
             mouves.append("L")
         return mouves
+    # returns tru if the stats have the same puzzle
+    # returns false if not
     def compare(self,other):
         result = True
+        # test to see if we have same size puzzles 
         if len(self.puzzle[0])!=len(other.puzzle[0]) :
             result = False
         else:
+            # compare all the elements one by one
             for y in range(len(self.puzzle[0])):
                 for x in range(len(self.puzzle[0])):
                     if self.puzzle[y][x]!=other.puzzle[y][x]:
@@ -210,6 +214,9 @@ temp.shuffle(50)
 print(temp.puzzle,"\n")
 temp.positions()
 
+# stucture that will be used to buid the search tree
+# it contains a puzzle (Sate above)
+# 
 class Noeud :
     def __init__(self, stateFather,stateSon,distance,heuristic):
         self.son = stateSon
