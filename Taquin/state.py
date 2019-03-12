@@ -73,26 +73,7 @@ class State:
             temp.position=np.argwhere(temp.puzzle == 0)
             self.puzzle = np.copy(temp.puzzle)
             self.position = temp.position
-    #returns a move to the right
-    def nMR(self):
-        temp = State(len(self.puzzle[0]))
-        temp.puzzle = self.puzzle.copy()
-        temp.mR()
-        return temp
-    #returns a move to the left
-    def nML(self):
-        temp = State(len(self.puzzle[0]))
-        temp.puzzle = self.puzzle.copy()
-        temp.mL()
-        return temp
-    #returns a move up
-    def nMU (self):
-        temp = State(len(self.puzzle[0]))
-        temp.puzzle = self.puzzle.copy()
-        temp.mU()
-        return temp
-    #returns a movedown
-    def nMD (self):
+
         temp = State(len(self.puzzle[0]))
         temp.puzzle = self.puzzle.copy()
         temp.mD()
