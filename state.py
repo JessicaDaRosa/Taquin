@@ -1,7 +1,7 @@
 import numpy as np
 import random as rnd
 import copy as cp
-size = 4
+
 class State:
     def __init__(self, size):
         self.puzzle = np.arange(1 , ((size*size)+1)).reshape(size,size)
@@ -204,72 +204,62 @@ class State:
                     if self.puzzle[y][x]!=other.puzzle[y][x]:
                         result = False
             return result
+    def __eq__(self, value):
+        result = True
+        if len(self.puzzle[0])!=len(value.puzzle[0]) :
+            result = False
+        else:
+            for y in range(len(self.puzzle[0])):
+                for x in range(len(self.puzzle[0])):
+                    if self.puzzle[y][x]!=value.puzzle[y][x]:
+                        result = False
+            return result
+        
                             
-temp = State(size)
-temp.shuffle(50)
-print(temp.puzzle," puzzle \n")
-temp.positions()
-
-class Noeud :
-    def __init__(self, stateFather,stateSon,distance,heuristic):
+class Node :
+    def __init__(self, stateFather,stateSon,distance):
         self.son = stateSon
         self.father = stateFather
-        self.h = heuristic
+        self.h = 0
         self.g = distance
-        self.f =self.h +self.g
+        self.f = distance
     # expanses using the number os misplaced pieces as an heuristic
     def expansePieces(self):
         fronteer = list()
         toDo = self.son.possibilities()
         while len(toDo) != 0:
             doing = toDo.pop(0)
-            new = Noeud(self,self.son.mouve(doing),self.g+1,0)
+            new = Node(self,self.son.mouve(doing),self.g+1)
             new.h = new.son.nbPieces()
+            new.f=new.f+new.h
             fronteer.append(new)
         return fronteer
     # expanses usinf the manhatan distance as an heuristic 
-    def expanseManhatan(self):
+    def expanseH(self,k):
         fronteer = list()
         toDo = self.son.possibilities()
         while len(toDo) != 0:
             doing = toDo.pop(0)
-            new = Noeud(self,self.son.mouve(doing),self.g+1,0)
-            new.h=new.manhatan()
-            print(new.h)
+            new = Node(self,self.son.mouve(doing),self.g+1)
+            new.h=new.heuristique(k)
+            new.f=new.f+new.h
             fronteer.append(new)
         return fronteer
-    #calculates the manhatan distance for the guiven puzzle
-    def manhatan(self):
-        ct = 0
-        for i in range(1,(len(self.son.puzzle[0])*len(self.son.puzzle[0]))):
-            ct = ct + self.son.distance(i)
-        return ct
-    # manhatan pondere 
     def heuristique(self,k):
         size = (len(self.son.puzzle[0])*len(self.son.puzzle[0]))
         ct = 0
         p = [4,1]
         pi = [[0,36,12,12,4,1,1,4,1],[0,8,7,6,5,4,3,2,1],[0,8,7,6,5,4,3,2,1],[0,8,7,6,5,3,2,4,1],[0,8,7,6,5,3,2,4,1],[0,1,1,1,1,1,1,1,1]]
-        print("len(pi[k]):",len(pi[k]),size)
         #the value of p used is p[k%2]
         for i in range(0,size):
-            if len(pi[k]) < size and i>0:
+            #print(i,len(pi[k]),i<len(pi[k]))
+            if i<len(pi[k]) and i>0 :
                 ct = ct + int((self.son.distance(i)*pi[k][i])/p[k%2])
-            elif i!=0:
+            elif i!=0 or len(pi[k]) >= size:
                 ct =  ct + self.son.distance(i)
-        return ct
-
-        
+        return ct  
     #true if the 2 have te same puzzle
     def compare(self,other):
         return self.son.compare(other.son)
-
-#orders a list os Noeuds by their f
-
-no = Noeud(None,temp,0,0)
-no2 = no.expanseManhatan()[0]
-print(no.son.puzzle,"no\n\n",no2.son.puzzle,"no2\n",no.compare(no2),"\n")
-
-thing = no2.expanseManhatan()
-for i in range(len(thing)):
-    print(thing[i].son.puzzle,"\t",thing[i].h,thing[i].heuristique(5))
+    def __eq__(self, value):
+        return self.son == value.son
