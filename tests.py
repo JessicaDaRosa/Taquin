@@ -1,15 +1,16 @@
-import state 
-size = 3
-k = 3
-temp = state.State(size)
-temp.shuffle(50)
-print(temp.puzzle," temp \n")
-temp.positions()
-
-no = state.Node(None,temp,0)
-no2 = no.expanseH(1)[0]
-print(no.son.puzzle,"no == temp\n")
-print(no2.son.puzzle,"no2")
-thing = no2.expanseH(k)
-for i in range(len(thing)):
-    print("\n",thing[i].son.puzzle,"\t","f:",thing[i].f,"g:",thing[i].g,"h:",thing[i].h)
+import state as node
+import numpy as np
+import search
+size = 5
+n = 10
+h = 4
+temp = node.State(size)# creating a solved puzzle
+goal = node.Node(None,temp,0,"_")# creating a goal node
+temp.shuffle(n)# shuffeling the goal node
+start = node.Node(None,temp,0,"fuck")# creating a neu node with a shuffled puzzle
+print(start.son.puzzle,"start\n")
+solution = search.search(start,h)
+#for i in range (len(solution[0])):
+#    print(solution[0][i])
+for i in range(1,len(solution)):
+    print(solution[i].son.puzzle,solution[i].mvm,"\n")

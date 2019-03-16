@@ -1,25 +1,20 @@
-import taquin as node
+import state as node
 import copy as cp
-start = node.Node(None,temp,0)# creating a neu node with a shuffled puzzle
-def min():
+def min(list):
 	position=0
-	min=global.fronteer[0].f
-	for i in xrange(1, len(global.fronteer)):
-		if(global.fronteer[i].f<min):
-			min=global.fronteer[i].f
+	min=list[0].f
 	for i in range(1, len(list)):
 		if(list[i].f<min):
 			min=list[i].f
 			position=i
 	return position
-
 def exist(list, element):
 	temp = len(list)
 	for i in range(len(list)):
 		if list[i]==element and list[i].f > element.f:
 			temp = i
 	return temp
-def search(self, start, h):
+def search(start, h):
 	fronteer = list()
 	visited = list()
 	solution = list()

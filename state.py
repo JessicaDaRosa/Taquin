@@ -6,97 +6,60 @@ class State:
     def __init__(self, size):
         self.puzzle = np.arange(1 , ((size*size)+1)).reshape(size,size)
         self.puzzle[size-1][size-1] = 0
-        self.position = np.argwhere(self.puzzle == 0)
     #tests if the movment is possible
-    def possible (self, move): 
-        y = self.position[0][0]
-        x = self.position[0][1]
+    def possible (self, move):
+        position = np.argwhere(self.puzzle == 0)[0]
         if(move == "U" or move=="u"):
-            if y != 0 and y < len(self.puzzle[0]) and y > 0: 
+            if position[0] != 0 and position[0] < len(self.puzzle[0]) and position[0] > 0: 
                 return True
         elif(move == "D" or move == "d"):
-            if y >= 0 and y != (len(self.puzzle[0])-1) and y < len(self.puzzle[0]): 
+            if position[0] >= 0 and position[0] != (len(self.puzzle[0])-1) and position[0] < len(self.puzzle[0]): 
                 return True
         elif move =="R" or move == "r" :
-            if x>=0 and x < (len(self.puzzle[0])-1): 
+            if position[1]>=0 and position[1] < (len(self.puzzle[0])-1): 
                 return True
         elif move == "L" or move == "l":
-             if x !=0 and x > 0 and x < len(self.puzzle[0]):
+             if position[1] !=0 and position[1] > 0 and position[1] < len(self.puzzle[0]):
                  return True
         else:
             return False
     #move the empty case to the right
     def mR(self):
-        y = self.position[0][0]
-        x = self.position[0][1]
-        if x>=0 and x<len(self.puzzle[1]) and x != (len(self.puzzle[x])-1):    
-            temp = State(len(self.puzzle[x]))
+        position = np.argwhere(self.puzzle == 0)[0]
+        if position[1]>=0 and position[1]<len(self.puzzle[0])-1 and position[1] != (len(self.puzzle[position[1]])-1):    
+            temp = State(len(self.puzzle[position[1]]))
             temp.puzzle = self.puzzle.copy()
-            temp.puzzle[y][x]=self.puzzle[y][x+1]
-            temp.puzzle[y][x+1]=self.puzzle[y][x]
-            temp.position = np.argwhere(temp.puzzle == 0)
+            temp.puzzle[position[0]][position[1]]=self.puzzle[position[0]][position[1]+1]
+            temp.puzzle[position[0]][position[1]+1]=self.puzzle[position[0]][position[1]]
             self.puzzle = np.copy(temp.puzzle)
-            self.position = temp.position
     #empty case to the left
     def mL(self):
-        y = self.position[0][0]
-        x = self.position[0][1]
-        if x > 0 and x < len(self.puzzle[x]): # x must be bigger than 0 andsmaler that tab.length        
-            temp = State(len(self.puzzle[x]))
+        position = np.argwhere(self.puzzle == 0)[0]
+        if position[1] > 0 and position[1] < len(self.puzzle[position[1]]): # x must be bigger than 0 andsmaler that tab.length        
+            temp = State(len(self.puzzle[position[1]]))
             temp.puzzle = self.puzzle.copy()
-            temp.puzzle[y][x] = self.puzzle[y][x-1]
-            temp.puzzle[y][x-1] = self.puzzle[y][x]
-            temp.position = np.argwhere(temp.puzzle == 0)
+            temp.puzzle[position[0]][position[1]] = self.puzzle[position[0]][position[1]-1]
+            temp.puzzle[position[0]][position[1]-1] = self.puzzle[position[0]][position[1]]
             self.puzzle = np.copy(temp.puzzle)
-            self.position = temp.position
     #move up
     def mU (self):
-        y = self.position[0][0]
-        x = self.position[0][1]
-        if y > 0 and y < len(self.puzzle[y]): #y must bebigger that 0  and smaller that tab.length
-            temp = State(len(self.puzzle[x]))
+        position = np.argwhere(self.puzzle == 0)[0]
+        if position[0] > 0 and position[0] < len(self.puzzle[position[0]]): #y must bebigger that 0  and smaller that tab.length
+            temp = State(len(self.puzzle[position[0]]))
             temp.puzzle = self.puzzle.copy()
-            temp.puzzle[y][x] = self.puzzle[y-1][x]
-            temp.puzzle[y-1][x] = self.puzzle[y][x]
-            temp.position = np.argwhere(temp.puzzle == 0)
+            temp.puzzle[position[0]][position[1]] = self.puzzle[position[0]-1][position[1]]
+            temp.puzzle[position[0]-1][position[1]] = self.puzzle[position[0]][position[1]]
             self.puzzle = np.copy(temp.puzzle)
-            self.position = temp.position
     #alters the current state
     def mD (self):
-        y = self.position[0][0]
-        x = self.position[0][1]
-        if y >= 0 and y < len(self.puzzle[y])-1:   
-            temp = State(len(self.puzzle[x]))
+        position = np.argwhere(self.puzzle == 0)[0]
+        if position[0] >= 0 and position[0] < len(self.puzzle[position[0]])-1:   
+            temp = State(len(self.puzzle[position[1]]))
             temp.puzzle = self.puzzle.copy()
-            temp.puzzle[y][x] = self.puzzle[y+1][x]
-            temp.puzzle[y+1][x] = self.puzzle[y][x]
-            temp.position=np.argwhere(temp.puzzle == 0)
+            temp.puzzle[position[0]][position[1]] = self.puzzle[position[0]+1][position[1]]
+            temp.puzzle[position[0]+1][position[1]] = self.puzzle[position[0]][position[1]]
             self.puzzle = np.copy(temp.puzzle)
-            self.position = temp.position
-    #returns a move to the right
-    def nMR(self):
-        temp = State(len(self.puzzle[0]))
-        temp.puzzle = self.puzzle.copy()
-        temp.mR()
-        return temp
-    #returns a move to the left
-    def nML(self):
-        temp = State(len(self.puzzle[0]))
-        temp.puzzle = self.puzzle.copy()
-        temp.mL()
-        return temp
-    #returns a move up
-    def nMU (self):
-        temp = State(len(self.puzzle[0]))
-        temp.puzzle = self.puzzle.copy()
-        temp.mU()
-        return temp
-    #returns a movedown
-    def nMD (self):
-        temp = State(len(self.puzzle[0]))
-        temp.puzzle = self.puzzle.copy()
-        temp.mD()
-        return temp
+
     # returns a specific mouvement according to what is demanded
     # u : up | d : down | r : right | l : left
     def mouve(self,toDo):
@@ -163,12 +126,9 @@ class State:
     # False if not
     def positions (self):
         m = list()
-        position = [0,0]
         goal = State(len(self.puzzle[0])).puzzle
         for y in range(0,(len(self.puzzle[0]))):
-            position [0]=y
             for x in range (0,(len(self.puzzle[0]))):
-                position[1]=x
                 if self.puzzle[y][x]==goal[y][x]:
                     m.append(True)
                 else:
@@ -194,16 +154,6 @@ class State:
         if self.possible("L"):
             mouves.append("L")
         return mouves
-    def compare(self,other):
-        result = True
-        if len(self.puzzle[0])!=len(other.puzzle[0]) :
-            result = False
-        else:
-            for y in range(len(self.puzzle[0])):
-                for x in range(len(self.puzzle[0])):
-                    if self.puzzle[y][x]!=other.puzzle[y][x]:
-                        result = False
-            return result
     def __eq__(self, value):
         result = True
         if len(self.puzzle[0])!=len(value.puzzle[0]) :
@@ -214,22 +164,25 @@ class State:
                     if self.puzzle[y][x]!=value.puzzle[y][x]:
                         result = False
             return result
-        
-                            
+    def __str__(self):
+        return print(self.puzzle)
+
+                        
 class Node :
-    def __init__(self, stateFather,stateSon,distance):
+    def __init__(self, stateFather,stateSon,distance,movment):
         self.son = stateSon
         self.father = stateFather
         self.h = 0
         self.g = distance
         self.f = distance
+        self.mvm = movment
     # expanses using the number os misplaced pieces as an heuristic
     def expansePieces(self):
         fronteer = list()
         toDo = self.son.possibilities()
         while len(toDo) != 0:
             doing = toDo.pop(0)
-            new = Node(self,self.son.mouve(doing),self.g+1)
+            new = Node(self,self.son.mouve(doing),self.g+1,doing)
             new.h = new.son.nbPieces()
             new.f=new.f+new.h
             fronteer.append(new)
@@ -240,7 +193,7 @@ class Node :
         toDo = self.son.possibilities()
         while len(toDo) != 0:
             doing = toDo.pop(0)
-            new = Node(self,self.son.mouve(doing),self.g+1)
+            new = Node(self,self.son.mouve(doing),self.g+1,doing)
             new.h=new.heuristique(k)
             new.f=new.f+new.h
             fronteer.append(new)
@@ -251,15 +204,17 @@ class Node :
         p = [4,1]
         pi = [[0,36,12,12,4,1,1,4,1],[0,8,7,6,5,4,3,2,1],[0,8,7,6,5,4,3,2,1],[0,8,7,6,5,3,2,4,1],[0,8,7,6,5,3,2,4,1],[0,1,1,1,1,1,1,1,1]]
         #the value of p used is p[k%2]
-        for i in range(0,size):
-            #print(i,len(pi[k]),i<len(pi[k]))
-            if i<len(pi[k]) and i>0 :
+        for i in range(1,size):
+            if i<len(pi[k]):
                 ct = ct + int((self.son.distance(i)*pi[k][i])/p[k%2])
-            elif i!=0 or len(pi[k]) >= size:
+            elif len(pi[k]) >= size:
                 ct =  ct + self.son.distance(i)
         return ct  
     #true if the 2 have te same puzzle
-    def compare(self,other):
-        return self.son.compare(other.son)
     def __eq__(self, value):
-        return self.son == value.son
+        if value != None:
+            return self.son == value.son
+        else:
+            return False
+    def __str__(self):
+        return print(self.son)
