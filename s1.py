@@ -1,5 +1,6 @@
 import state as node
 import copy as cp
+import time 
 
 def exist(list, element):
 	temp = len(list)
@@ -11,6 +12,7 @@ def exist(list, element):
 			found == True
 		i = i+1
 	return temp
+
 def TrieInsert(list,element):
 	if len(list)==0:
 		list.append(element)
@@ -25,6 +27,7 @@ def TrieInsert(list,element):
 			list.insert(i,element)
 
 def search(start, h):
+	a = time.time()
 	fronteer = list()
 	visited = list()
 	solution = list()
@@ -42,18 +45,19 @@ def search(start, h):
 					foundIt = True
 			else:
 				y = exist(fronteer,n)
+				x = exist(visited, n)
 				if y < len(fronteer) : #si vrai, alors n existe dans la frontière et n.f < f dans frontière.
 					fronteer.pop(y)
 					TrieInsert(fronteer,n)
 				 #vérifier si n est présent dans visited
-				x = exist(visited, n)
-				if x < len(visited) : #si vrai, alors n existe dans visited  et n.f < f dans visited.
+				elif x < len(visited) : #si vrai, alors n existe dans visited  et n.f < f dans visited.
 					TrieInsert(fronteer, n)
 					visited.pop(x)
-				if y >= len(fronteer) and x>=len(visited):
+				elif y == len(fronteer) and x == len(visited):
 					TrieInsert(fronteer,n)
 		TrieInsert(visited, aVisiter)
-		print("frontear:",len(fronteer),"visited:",len(visited),"fmin:",fronteer[0].f,end="\r")
+		b=time.time()
+		print("frontear:",len(fronteer),"visited:",len(visited),"gmin:",fronteer[0].g,"\t",b-a,end="\r")
 	print()
 	solution.append(goal)
 	t = goal.father
