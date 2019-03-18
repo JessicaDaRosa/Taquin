@@ -6,12 +6,11 @@ def exist(list, element):
 	i=0
 	found = False
 	while found == False and i <len(list):
-		if list[i] == element:
+		if list[i].son == element.son and list[i].f > element.f:
 			temp = i
 			found == True
 		i = i+1
 	return temp
-
 def TrieInsert(list,element):
 	if len(list)==0:
 		list.append(element)
@@ -42,20 +41,20 @@ def search(start, h):
 					goal = n
 					foundIt = True
 			else:
-				# n existe dans la frontiere
 				y = exist(fronteer,n)
-				if y < len(fronteer)  and fronteer[x].f > n.f: # vrai si y < len(frontiere), n existe deja
-					fronteer.pop(y) # on eleve n de la frontiere
-					TrieInsert(fronteer,n)# on ajoute le nouveau n a la forntiere	
+				if y < len(fronteer) : #si vrai, alors n existe dans la frontière et n.f < f dans frontière.
+					fronteer.pop(y)
+					TrieInsert(fronteer,n)
 				 #vérifier si n est présent dans visited
-				# n a deja etait visite
 				x = exist(visited, n)
-				if x < len(visited) and visited[x].f > n.f : #si vrai, alors n existe dans visited  et n.f < f dans visited.
-					visited.pop(x) # on eleve n de visited
-					TrieInsert(fronteer, n) # on ajoute n a la frontiere
+				if x < len(visited) : #si vrai, alors n existe dans visited  et n.f < f dans visited.
+					TrieInsert(fronteer, n)
+					visited.pop(x)
 				if y >= len(fronteer) and x>=len(visited):
 					TrieInsert(fronteer,n)
 		TrieInsert(visited, aVisiter)
+		print("frontear:",len(fronteer),"visited:",len(visited),"fmin:",fronteer[0].f,end="\r")
+	print()
 	solution.append(goal)
 	t = goal.father
 	while t.father != None:
