@@ -1,0 +1,201 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Projet 2 : Intelligence Artificielle
+\end_layout
+
+\begin_layout Title
+Le jeu du taquin 
+\end_layout
+
+\begin_layout Author
+Jessica DA ROSA – Yannick HONORE 
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Paragraph*
+Le taquin est un jeu solitaire en forme de damier crée dans les années 1870
+ aux Etats-Unis.
+ À partir de 1891, le jeu devient de plus en plus populaire aux Etats-Unis
+ comme en Europe.
+ À l'origine, il est composé de 15 petits carreaux numérotés de 1 à 15 dans
+ un cadre prévu pour 16 carreaux.
+ Le but du jeu est de remettre les carreaux dans l'ordre à partir d'une
+ configuration initiale.
+ Ce principe est retrouvé dans plusieurs autres jeux comme le Rubik's Cube,
+ qui est considéré aujourd'hui comme un descendant du taquin.
+\end_layout
+
+\begin_layout Section
+II.
+ Projet : Jeu du Taquin
+\end_layout
+
+\begin_layout Paragraph*
+Dans un premier temps, nous allons présenter brièvement en quoi consiste
+ le projet, puis les fonctionnalités qu'il présente et enfin les problèmes
+ qui ont été rencontrés lors de la réalisation de celui-ci ainsi que les
+ solutions qui ont permis de les résoudre.
+\end_layout
+
+\begin_layout Subsection
+Présentation
+\end_layout
+
+\begin_layout Standard
+L'algorithme se décompose en 2 programmes codés en « Python » :
+\end_layout
+
+\begin_layout Itemize
+– state.py
+\end_layout
+
+\begin_layout Itemize
+– search.py 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Le programme state.py permet de :
+\end_layout
+
+\begin_layout Itemize
+Dans la classe State de :
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Créer un taquin avec chaque case à leur place : __init__(self, size).
+\end_layout
+
+\begin_layout Itemize
+Définir si un mouvement est possible : possible(self, move).
+\end_layout
+
+\begin_layout Itemize
+Effectuer un mouvement avec le trou dans n'importe quelle direction (nord,
+ sud, ouest, est) : mU(self), mD(self), mL(self), mR(self), mouve(self,
+ toDo)
+\end_layout
+
+\begin_layout Itemize
+Mélanger le taquin initialisé : shuffle(self, number) et utilisation de
+ la bibliothèque random.
+\end_layout
+
+\begin_layout Itemize
+Obtenir la distance de Haming d'un élément de l'état avec la méthode : distance(
+self, character).
+\end_layout
+
+\begin_layout Itemize
+Savoir si un carreau est à la place qu'il doit occuper à l'état final :
+ positions(self).
+\end_layout
+
+\begin_layout Itemize
+Connaître le nombre de pièces mal placées : nbPieces(self).
+\end_layout
+
+\begin_layout Itemize
+Pouvoir anticiper quels déplacements je peux effectuer à partir de n'importe
+ quel état : possibilities(self).
+\end_layout
+
+\begin_layout Itemize
+Vérifier si deux taquins sont identiques : __eq__(self, value).
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Fonctionnalités
+\end_layout
+
+\begin_layout Section
+Problèmes
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\end_body
+\end_document
