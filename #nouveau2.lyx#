@@ -431,18 +431,16 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-La representation suivante est une des representatios du taqui 3x3 generes
- par notre algorithme et c'est celle qu'on a choisi pour efectuer des 
-\end_layout
-
-\begin_layout Standard
+La matrisse suivante: 
 \begin_inset Formula $\begin{bmatrix}2 & 8 & 4\\
 1 & 6 & 3\\
 7 & 5 & X
 \end{bmatrix}$
 \end_inset
 
-
+ est une des representatios du taqui 3x3 generes par notre algorithme et
+ c'est cellepour la quelle on a enregistrer quesuqes resultats a fin d'en
+ reterir quesuqes conclusions sur l'algorithme concue.
 \end_layout
 
 \end_body
