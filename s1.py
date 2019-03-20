@@ -1,3 +1,4 @@
+# coding=utf-8
 import state as node
 import copy as cp
 import time 
@@ -29,7 +30,7 @@ def TrieInsert(list,element):
 def search(start, h):
 	a = time.time()
 	fronteer = list()
-	visited = list()
+	visited = {}
 	solution = list()
 	temp = node.State(len(start.son.puzzle[0]))# creating a solved puzzle
 	goal = node.Node(None,temp,0,"_")# creating a goal node
@@ -44,16 +45,13 @@ def search(start, h):
 					goal = n
 					foundIt = True
 			else:
-				y = exist(fronteer,n)
-				x = exist(visited, n)
-				if y < len(fronteer) : #si vrai, alors n existe dans la frontière et n.f < f dans frontière.
-					fronteer.pop(y)
-					TrieInsert(fronteer,n)
-				 #vérifier si n est présent dans visited
-				elif x < len(visited) : #si vrai, alors n existe dans visited  et n.f < f dans visited.
+				
+				#vérifier si n est présent dans visited
+				if n.getKey() in visited: #si vrai, alors n existe dans visited  et n.f < f dans visited.
+					x = visited.get(n.getkey())
 					TrieInsert(fronteer, n)
 					visited.pop(x)
-				elif y == len(fronteer) and x == len(visited):
+				elif  x == len(visited):
 					TrieInsert(fronteer,n)
 		TrieInsert(visited, aVisiter)
 		b=time.time()

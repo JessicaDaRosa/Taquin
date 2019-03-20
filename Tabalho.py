@@ -20,8 +20,10 @@ temp.puzzle = node.np.array([2, 8, 4, 1, 6, 3, 7, 5, 0]).reshape(size, size)
 #temp.puzzle = node.np.array([[ 6,1,3,4], [ 0,  5,  7,  8], [13,  2, 10, 11], [14,  9, 15, 12]])
 
 start = node.Node(None, temp, 0, "fuck")  # creating a neu node with a shuffled puzzle
-print(start.son.puzzle, "start\n")
+print(start.getKey(), "start\n")
 
+
+"""
 s = time.time()
 solution = s1.search(start, h)
 end = time.time()
@@ -34,3 +36,4 @@ for i in range(1, len(solution)):
 print(thing,len(solution)-1)
 d = end - s
 print("temps ecoule:", d)
+"""

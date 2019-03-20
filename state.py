@@ -240,6 +240,14 @@ class Node:
             return self.son == value.son
         else:
             return False
+   
+    def getKey(self):
+        puzzle = cp.deepcopy(self.son.puzzle)
+        key=list()
+        for i in range(len(puzzle)):
+            key.append("".join(map(str,puzzle[i])))
+        keyF="".join(map(str,key))
+        return keyF
 
     def __str__(self):
         return print(self.son)
